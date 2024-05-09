@@ -6,52 +6,20 @@ export default function Layout () {
 
   return (
     <>
-      <div
-        style={{
-          backgroundColor: 'whitesmoke',
-          padding: "10px",
+      <nav style={{ backgroundColor: "#333", padding: "10px" }}>
+        <Link
+          to="/home"
+          style={{ color: "#fff", textDecoration: "none", marginRight: "20px" }}
+        >
+          Home
+        </Link>
+        <Link to="/chat" style={{ color: "#fff", textDecoration: "none" }}>
+          Chat
+        </Link>
+      </nav>
 
-        }}
-      >
-        <nav>
-          
-            <div>
-              <Link
-                to="/home"
-                style={{
-                  marginRight: "20px",
-                  color: "#333",
-                  textDecoration: "none",
-                }}
-              >
-                Home
-              </Link>
-              <Link
-                to="/chat"
-                style={{
-                   color: "#333",
-                  textDecoration: "none",
-                }}
-              >
-                Chat
-              </Link>
-            </div>
-      
-        </nav>
-      </div>
       <Header />
-      <div
-        style={{
-          minHeight: "calc(100vh - 160px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginLeft: "20px",
-          color: 'grey',
-          width: '100%'
-          
-        }}
-      >
+      <div>
         <Outlet />
       </div>
 

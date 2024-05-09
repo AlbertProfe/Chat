@@ -7,7 +7,7 @@ export default function Header() {
           color: "white",
           padding: "20px 0",
           textAlign: "center",
-          position: "fixed",
+         marginBottom: "20px",
           width: "100%",
           borderTop: "1px solid #ddd",
         }}
