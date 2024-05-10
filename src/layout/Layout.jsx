@@ -13,8 +13,14 @@ export default function Layout () {
         >
           Home
         </Link>
-        <Link to="/chat" style={{ color: "#fff", textDecoration: "none" }}>
+        <Link
+          to="/chat"
+          style={{ color: "#fff", textDecoration: "none", marginRight: "20px" }}
+        >
           Chat
+        </Link>
+        <Link to="/chatSandBox" style={{ color: "#fff", textDecoration: "none" }}>
+          Chat SandBox
         </Link>
       </nav>
 
