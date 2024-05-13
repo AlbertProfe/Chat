@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, createContext } from "react";
 
 
 const endpoint =  "wss://sssssss.execute-api.eu-central-1.amazonaws.com/test";
-const WebSocketContext = createContext(false, null, () => {});
+export const WebSocketContext = createContext(false, null, () => {});
 // ..............................isConnected, message, send function
 
 const SocketProvider = ({children}) => {
@@ -47,6 +47,6 @@ const SocketProvider = ({children}) => {
        </WebSocketContext.Provider>
      );
 
-}
+};
 
-export default { SocketProvider };
+export default SocketProvider;
