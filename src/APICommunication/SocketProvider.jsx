@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, createContext } from "react";
 
 
-const endpoint =  "wss://sssssss.execute-api.eu-central-1.amazonaws.com/test";
+const endpoint =  "wss://4rytvXXXXX.execute-api.eu-central-1.amazonaws.com/test";
 export const WebSocketContext = createContext(false, null, () => {});
 // ..............................isConnected, message, send function
 
