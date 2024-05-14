@@ -1,5 +1,5 @@
 
-import {Segment} from "semantic-ui-react";
+import {Segment, Container} from "semantic-ui-react";
 import ChatInfo from "./ChatInfo";
 import ConversationFeed from "./ConversationFeed"
 import WriteMessage from "./WriteMessage"
@@ -12,27 +12,22 @@ export default function ChatConversation(user) {
         <ChatInfo userId={user.userId} />
       </Segment>
 
-      <Segment
+      <Container
         style={{
           border: "none",
           paddingTop: "10px",
           paddingLeft: "15px",
-          paddingBottom: "5px",
+          paddingBottom: "25px",
         }}
       >
-        <ConversationFeed />
-      </Segment>
+        <ConversationFeed userId={user.userId} />
+      </Container>
 
-      <Segment
-        style={{
-          border: "none",
-          paddingTop: "10px",
-          paddingLeft: "15px",
-          paddingBottom: "5px",
-        }}
+      <Container
+        
       >
         <WriteMessage />
-      </Segment>
+      </Container>
     </>
   );
 }
