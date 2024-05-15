@@ -5,12 +5,13 @@ import {
 
 } from "semantic-ui-react";
 
-export default function ChatInfo(user) {
+export default function ChatInfo(login) {
+  //console.log("ChatInfo", login);
 
   return (
     <>
       <Header as="h3" floated="left">
-        {user.userId}
+        {login.loginUser.userId} / {login.loginUser.chatId}
       </Header>
       <Header as="h5" floated="right">
         <Label circular color={"green"} key={"green"}>

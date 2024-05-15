@@ -13,7 +13,7 @@ import { WebSocketContext } from "../APICommunication/SocketProvider";
 export default function ChatRoom() {
   const [isConnected, , send] = useContext(WebSocketContext);
   const [isLogin, setIsLogin] = useState(false);
-  //const [chatId, setChatId] = useState("");
+  const [chatId, setChatId] = useState("");
   const [userId, setUserId] = useState("");
 
   const sendFakeLogin = (chatId, userId) => {
@@ -26,10 +26,12 @@ export default function ChatRoom() {
     if (isConnected) send(JSON.stringify(fakeDataLogin));
     setIsLogin(true);
     setUserId(userId); // Set userId state when logging in
+    setChatId(chatId); // Set chatId state when logging in
   };
 
   const fakeLogins = [
     { chatId: "party", userId: "elliot" },
+    { chatId: "elliot", userId: "elliot" },
     { chatId: "party", userId: "jenny" },
     { chatId: "party", userId: "matthew" },
     { chatId: "party", userId: "daniel" },
@@ -37,6 +39,11 @@ export default function ChatRoom() {
     { chatId: "party", userId: "helen" },
   ];
 
+  const loginUser = {
+    chatId: chatId,
+    userId: userId,
+  };
+  
   return (
     <>
       {!isConnected ? (
@@ -54,7 +61,7 @@ export default function ChatRoom() {
               key={index}
               onClick={() => sendFakeLogin(login.chatId, login.userId)}
             >
-              Fake Login user: {login.userId} & chat: {login.chatId}
+              user: {login.userId} - chat: {login.chatId}
             </Button>
           ))}
         </Container>
@@ -73,7 +80,7 @@ export default function ChatRoom() {
                 <ChatMenu />
               </GridColumn>
               <GridColumn width={12}>
-                <ChatConversation userId={userId} />
+                <ChatConversation loginUser={loginUser} />
               </GridColumn>
             </GridRow>
           </Grid>

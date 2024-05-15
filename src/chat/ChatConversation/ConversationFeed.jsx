@@ -5,7 +5,7 @@ import DetailConversationFeed from './DetailConversationFeed'
 import WriteMessage from "./WriteMessage";
 
 
-export default function ConversationFeed(user) {
+export default function ConversationFeed(login) {
   //console.log(user.userId);
   //const [text, setText] = useState("");
   const [isConnected, message, send] = useContext(WebSocketContext);
@@ -16,8 +16,8 @@ export default function ConversationFeed(user) {
       case "send": {
         let data = {
           action: "conversation",
-          chatId: "party",
-          userId: user.userId,
+          chatId: login.loginUser.chatId,
+          userId: login.loginUser.userId,
           text: action.payload,
         };
         if (isConnected) send(JSON.stringify(data));
@@ -28,7 +28,7 @@ export default function ConversationFeed(user) {
             id: Date.now(),
             time: Date.now(),
             chatId: "party",
-            userId: user.userId,
+            userId: login.loginUser.userId,
             text: action.payload,
           },
         ];
