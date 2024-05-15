@@ -1,23 +1,33 @@
-import {Input, Container} from "semantic-ui-react";
+import { useState } from "react";
+import {Input} from "semantic-ui-react";
 
-export default function WriteMessage() {
+const WriteMessage = ({ dispatch }) => {
+  const [text, setText] = useState("");
+
+  const handleSend = () => {
+    if (text.trim() !== "") {
+      dispatch({ type: "send", payload: text });
+      setText("");
+    }
+  };
+
   return (
     <>
-      <Container
-        style={{
-          border: "none",
-          paddingTop: "0px",
-          paddingLeft: "0px",
-          paddingBottom: "5px",
-  
-        }}
-      >
-        <Input
-          fluid
-          action={{ icon: "send" }}
-          placeholder='"Hello how are you, the spy from the cold...'
-        />
-      </Container>
+      <Input
+        fluid
+        action={{ icon: "send",  onClick:
+         () => {handleSend()}}}
+        
+        placeholder='"Hello how are you, the spy from the cold...'
+        type="text"
+        name="content"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+    
     </>
   );
-}
+};
+
+export default WriteMessage;
+

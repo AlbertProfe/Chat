@@ -1,11 +1,13 @@
-import  { useContext, useState, useReducer, useEffect } from "react";
+import  { useContext,  useReducer, useEffect } from "react";
 import { WebSocketContext } from "../../APICommunication/SocketProvider";
-//import { Feed} from "semantic-ui-react";
-//import DetailConversationFeed from './DetailConversationFeed'
+import { Feed} from "semantic-ui-react";
+import DetailConversationFeed from './DetailConversationFeed'
+import WriteMessage from "./WriteMessage";
+
 
 export default function ConversationFeed(user) {
   //console.log(user.userId);
-  const [text, setText] = useState("");
+  //const [text, setText] = useState("");
   const [isConnected, message, send] = useContext(WebSocketContext);
   const [conversation, dispatch] = useReducer(conversationReducer, []);
 
@@ -62,34 +64,15 @@ export default function ConversationFeed(user) {
     //console.log("isConversation: " + isConversation + " - message: " + message);
    }, [message]);
 
-    //console.log(conversation); 
+  //console.log(conversation); 
   return (
     <>
-      {/*  <Feed><DetailConversationFeed />  </Feed>*/}
-      <p>Conversation</p>
-      {conversation.map((item) => (
-        <p key={item.id}>
-          {" "}
-          {item.userId} : {item.text}
-        </p>
-      ))}
-    
-      <input
-        type="text"
-        name="content"
-        placeholder="say hello"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
+      
+      <Feed style={{paddingLeft:"20px"}}>
+        <DetailConversationFeed conversation={conversation} />
+      </Feed>
 
-      <button
-        onClick={() => {
-          dispatch({ type: "send", payload: text });
-          setText("");
-        }}
-      >
-        Send
-      </button>
+      <WriteMessage dispatch={dispatch} />
     </>
   );
 }

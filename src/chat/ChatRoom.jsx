@@ -29,12 +29,12 @@ export default function ChatRoom() {
   };
 
   const fakeLogins = [
-    { chatId: "party", userId: "olga" },
-    { chatId: "party", userId: "jordi" },
-    { chatId: "party", userId: "larissa" },
-    { chatId: "party", userId: "edu" },
-    { chatId: "party", userId: "catherine" },
-    { chatId: "party", userId: "raquel" },
+    { chatId: "party", userId: "elliot" },
+    { chatId: "party", userId: "jenny" },
+    { chatId: "party", userId: "matthew" },
+    { chatId: "party", userId: "daniel" },
+    { chatId: "party", userId: "molly" },
+    { chatId: "party", userId: "helen" },
   ];
 
   return (
