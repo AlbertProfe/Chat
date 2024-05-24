@@ -5,15 +5,17 @@ import {
   List,
 } from "semantic-ui-react"
 
-export default function ContactsList({user}) {
+export default function ContactsList({ user, selectChat }) {
+  console.log("ContactsList:", user);
 
-console.log("list:", user);
-  
   return (
     <>
       <List divided relaxed>
         {user.chats.map((chat) => (
-          <List.Item key={chat.chatId} onClick={(e) => console.log(e)}>
+          <List.Item
+            key={chat.chatId}
+            onClick={() => selectChat(chat.chatId)}
+          >
             <Grid>
               <Grid.Column width={5}>
                 <Image
@@ -25,7 +27,7 @@ console.log("list:", user);
                 <List.Header>{chat.name}</List.Header>
                 <List.Description>
                   {" "}
-                  {new Date(chat.lastSeen).toDateString()} 
+                  {new Date(chat.lastSeen).toDateString()}
                 </List.Description>
               </Grid.Column>
             </Grid>

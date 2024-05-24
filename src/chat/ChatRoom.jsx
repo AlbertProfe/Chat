@@ -39,6 +39,10 @@ export default function ChatRoom() {
   //console.log(user);
   //console.log(message);
 
+  const selectChat = (chatSelected) => {
+    setUser({ ...user, chatSelected: chatSelected });
+  };
+
   const sendFakeLogin = (chatId, userId) => {
 
     const loginOwnerUser = "owner#" & userId;
@@ -105,12 +109,13 @@ export default function ChatRoom() {
             borderRadius: "8px",
             padding: "10px",
             marginBottom: "10px",
+            backgroundColor: "#f2f2f2",
           }}
         >
           <Grid columns={2} divided>
             <GridRow>
               <GridColumn width={4}>
-                <ChatMenu user={user}  />
+                <ChatMenu user={user} selectChat={selectChat} />
               </GridColumn>
               <GridColumn width={12}>
                 <ChatConversation user={user} />

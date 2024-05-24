@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //import React from 'react'
 import {Container} from "semantic-ui-react"
 import ChatMenuHeader from "./ChatMenuHeader";
@@ -5,12 +6,10 @@ import ContactsList from "./ContactsList";
 //import { WebSocketContext } from "../APICommunication/SocketProvider";
 //import { useContext } from "react";
 
-export default function ChatMenu({user}) {
-    //const [isConnected, message] = useContext(WebSocketContext);
-
+export default function ChatMenu({ user, selectChat }) {
+  //const [isConnected, message] = useContext(WebSocketContext);
   return (
     <>
-
       <Container>
         <ChatMenuHeader />
       </Container>
@@ -23,8 +22,8 @@ export default function ChatMenu({user}) {
           paddingBottom: "5px",
         }}
       >
-        <ContactsList user={user} />
+        <ContactsList user={user} selectChat={selectChat} />
       </Container>
-      </>
+    </>
   );
 }

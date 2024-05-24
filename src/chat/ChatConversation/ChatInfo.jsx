@@ -9,11 +9,11 @@ export default function ChatInfo({user}) {
 
   return (
     <>
-      <Header as="h3" floated="left">
-        {user.name} {", "} {user.chatSelected}
+      <Header as="h4" floated="left" style={{color: "grey"}}>
+          {user.name} {", "} {user.chatSelected}
       </Header>
       <Header as="h5" floated="right">
-        <Label circular color={"green"} key={"green"}>
+        <Label circular color={"teal"} key={"teal"}>
           Connected
         </Label>
         <Label circular color={"grey"} key={"grey"}>
