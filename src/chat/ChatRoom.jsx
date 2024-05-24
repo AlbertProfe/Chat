@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   GridRow,
   GridColumn,
@@ -11,37 +11,82 @@ import ChatConversation from "./ChatConversation/ChatConversation";
 import { WebSocketContext } from "../APICommunication/SocketProvider";
 
 export default function ChatRoom() {
-  const [isConnected, , send] = useContext(WebSocketContext);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isConnected, message, send] = useContext(WebSocketContext);
+
+  const initUser = {
+    "name": "",
+    "chatId": "",
+    "userId": "",
+    "isLogin" : false,
+    "isConnected": false,
+    "chatSelected": "home",
+    "chats": [],
+    "connectionId": "" 
+  };
+
+  const [user, setUser] = useState(initUser);
+  //const [isLogin, setIsLogin] = useState(false);
   //const [chatId, setChatId] = useState("");
-  const [userId, setUserId] = useState("");
+  //const [userId, setUserId] = useState("");
+  console.log(user);
+  //console.log(message);
+
 
   const sendFakeLogin = (chatId, userId) => {
+
+    const loginOwnerUser = "owner#" & userId;
+
     const fakeDataLogin = {
       action: "login",
       chatId,
-      userId,
+      loginOwnerUser,
     };
 
-    if (isConnected) send(JSON.stringify(fakeDataLogin));
-    setIsLogin(true);
-    setUserId(userId); // Set userId state when logging in
+    if (isConnected) { 
+      
+      send(JSON.stringify(fakeDataLogin));
+    
+      setUser({
+        ...user,
+        userId: userId,
+        chatId: chatId,
+        isConnected: isConnected,
+
+      });
+   }
+   
   };
 
   const fakeLogins = [
-    { chatId: "party", userId: "elliot" },
-    { chatId: "party", userId: "jenny" },
-    { chatId: "party", userId: "matthew" },
-    { chatId: "party", userId: "daniel" },
-    { chatId: "party", userId: "laura" },
-    { chatId: "party", userId: "helen" },
+    { chatId: "elliot", userId: "elliot" },
+    { chatId: "helen", userId: "helen" },
+    { chatId: "matthew", userId: "matthew" },
+    { chatId: "daniel", userId: "daniel" },
+    { chatId: "laura", userId: "laura" }
   ];
+
+  useEffect(() => {
+    if (message) {
+      var isLogged = false;
+      isLogged = JSON.parse(message).action === "logged in";
+      if (isLogged) {
+         setUser({
+           ...user,
+           connectionId: JSON.parse(message).connectionId,
+           chats: JSON.parse(message).dataOwner.chats,
+           name: JSON.parse(message).dataOwner.fullName,
+           avatar: JSON.parse(message).dataOwner.avatar,
+           isLogin: true,
+         });
+      }
+    }
+  }, [message]);
 
   return (
     <>
       {!isConnected ? (
         "Connecting ...."
-      ) : !isLogin ? (
+      ) : !user.isLogin ? (
         <Container textAlign="center" style={{ marginTop: "100px" }}>
           {fakeLogins.map((login, index) => (
             <Button
@@ -73,7 +118,7 @@ export default function ChatRoom() {
                 <ChatMenu />
               </GridColumn>
               <GridColumn width={12}>
-                <ChatConversation userId={userId} />
+                <ChatConversation user={user} />
               </GridColumn>
             </GridRow>
           </Grid>

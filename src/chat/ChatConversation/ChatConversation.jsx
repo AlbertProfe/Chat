@@ -3,15 +3,17 @@ import ChatInfo from "./ChatInfo";
 import ConversationFeed from "./ConversationFeed";
 //import WriteMessage from "./WriteMessage"
 
-export default function ChatConversation(user) {
+export default function ChatConversation({user}) {
+
+  //console.log("ChatConversation: ", user);
   return (
     <>
       <Segment clearing>
-        <ChatInfo userId={user.userId} />
+        <ChatInfo user={user} />
       </Segment>
 
       <Container>
-        <ConversationFeed userId={user.userId} />
+        <ConversationFeed user={user} />
       </Container>
 
       {/*  <Container>
