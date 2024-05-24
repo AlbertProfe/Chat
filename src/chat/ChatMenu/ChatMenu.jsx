@@ -5,9 +5,8 @@ import ContactsList from "./ContactsList";
 //import { WebSocketContext } from "../APICommunication/SocketProvider";
 //import { useContext } from "react";
 
-export default function ChatMenu() {
+export default function ChatMenu({user}) {
     //const [isConnected, message] = useContext(WebSocketContext);
-
 
   return (
     <>
@@ -24,7 +23,7 @@ export default function ChatMenu() {
           paddingBottom: "5px",
         }}
       >
-        <ContactsList />
+        <ContactsList user={user} />
       </Container>
       </>
   );

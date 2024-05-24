@@ -10,32 +10,38 @@ import ChatMenu from "./ChatMenu/ChatMenu";
 import ChatConversation from "./ChatConversation/ChatConversation";
 import { WebSocketContext } from "../APICommunication/SocketProvider";
 
+
+const fakeLogins = [
+    { chatId: "elliot", userId: "elliot" },
+    { chatId: "helen", userId: "helen" },
+    { chatId: "matthew", userId: "matthew" },
+    { chatId: "daniel", userId: "daniel" },
+    { chatId: "laura", userId: "laura" },
+  ];
+
+
 export default function ChatRoom() {
+
   const [isConnected, message, send] = useContext(WebSocketContext);
 
   const initUser = {
     "name": "",
     "chatId": "",
     "userId": "",
-    "isLogin" : false,
-    "isConnected": false,
+    "isLogin": false,
+    "isConnected": isConnected,
     "chatSelected": "home",
     "chats": [],
     "connectionId": "" 
   };
 
   const [user, setUser] = useState(initUser);
-  //const [isLogin, setIsLogin] = useState(false);
-  //const [chatId, setChatId] = useState("");
-  //const [userId, setUserId] = useState("");
-  console.log(user);
+  //console.log(user);
   //console.log(message);
-
 
   const sendFakeLogin = (chatId, userId) => {
 
     const loginOwnerUser = "owner#" & userId;
-
     const fakeDataLogin = {
       action: "login",
       chatId,
@@ -43,27 +49,16 @@ export default function ChatRoom() {
     };
 
     if (isConnected) { 
-      
       send(JSON.stringify(fakeDataLogin));
-    
       setUser({
         ...user,
         userId: userId,
         chatId: chatId,
         isConnected: isConnected,
-
       });
-   }
-   
+    }
   };
 
-  const fakeLogins = [
-    { chatId: "elliot", userId: "elliot" },
-    { chatId: "helen", userId: "helen" },
-    { chatId: "matthew", userId: "matthew" },
-    { chatId: "daniel", userId: "daniel" },
-    { chatId: "laura", userId: "laura" }
-  ];
 
   useEffect(() => {
     if (message) {
@@ -115,7 +110,7 @@ export default function ChatRoom() {
           <Grid columns={2} divided>
             <GridRow>
               <GridColumn width={4}>
-                <ChatMenu />
+                <ChatMenu user={user}  />
               </GridColumn>
               <GridColumn width={12}>
                 <ChatConversation user={user} />
