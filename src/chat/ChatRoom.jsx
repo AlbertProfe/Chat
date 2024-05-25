@@ -40,16 +40,23 @@ export default function ChatRoom() {
   //console.log(message);
 
   const selectChat = (chatSelected) => {
-    setUser({ ...user, chatSelected: chatSelected });
+    const fakeSelectedDataLogin = {
+      action: "login",
+      chatId: chatSelected,
+      userId: user.userId,
+    };
+    if (isConnected) { 
+      send(JSON.stringify(fakeSelectedDataLogin));
+      setUser({ ...user, chatSelected: chatSelected , chatId: chatSelected});
+    }
   };
 
   const sendFakeLogin = (chatId, userId) => {
-
     const loginOwnerUser = "owner#" & userId;
     const fakeDataLogin = {
       action: "login",
-      chatId,
-      loginOwnerUser,
+      chatId: chatId,
+      userId: loginOwnerUser,
     };
 
     if (isConnected) { 
