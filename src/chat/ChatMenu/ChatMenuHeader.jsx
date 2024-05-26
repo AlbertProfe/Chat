@@ -1,29 +1,35 @@
-//import React from 'react'
-import {Header,Button} from "semantic-ui-react";
+/* eslint-disable react/prop-types */
+import { Header, Button } from "semantic-ui-react";
 
-
-export default function ChatMenuHeader() {
-
-  
+export default function ChatMenuHeader({
+  handleShowContactsList,
+  handleShowCreateChat,
+  handleShowAddContact,
+}) {
   return (
     <>
       <Header as="h5">Chats</Header>
       <Button
         circular
-        size="mini"
-        color="#B2BEB5"
-        content="Chat"
-        icon="chat"
-        labelPosition="right"
-      />
+        size="tiny"
+        color=""
+        icon="users"
+        onClick={handleShowContactsList}
+      />{" "}
       <Button
         circular
-        size="mini"
-        color="#B2BEB5"
-        content="Contact"
-        icon="user"
-        labelPosition="right"
+        size="tiny"
+        color=""
+        icon="chat"
+        onClick={handleShowCreateChat}
       />{" "}
+      <Button
+        circular
+        size="tiny"
+        color=""
+        icon="user"
+        onClick={handleShowAddContact}
+      />
     </>
   );
 }
