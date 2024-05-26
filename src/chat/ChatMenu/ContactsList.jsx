@@ -10,12 +10,9 @@ export default function ContactsList({ user, selectChat }) {
 
   return (
     <>
-      <List divided relaxed>
+      <List divided relaxed animated selection size="medium">
         {user.chats.map((chat) => (
-          <List.Item
-            key={chat.chatId}
-            onClick={() => selectChat(chat.chatId)}
-          >
+          <List.Item key={chat.chatId} onClick={() => selectChat(chat.chatId)}>
             <Grid>
               <Grid.Column width={5}>
                 <Image
