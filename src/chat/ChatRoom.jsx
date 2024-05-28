@@ -25,14 +25,15 @@ export default function ChatRoom() {
   const [isConnected, message, send] = useContext(WebSocketContext);
 
   const initUser = {
-    "name": "",
-    "chatId": "",
-    "userId": "",
-    "isLogin": false,
-    "isConnected": isConnected,
-    "chatSelected": "home",
-    "chats": [],
-    "connectionId": "" 
+    name: "",
+    chatId: "",
+    userId: "",
+    isLogin: false,
+    isConnected: isConnected,
+    chatSelected: "home",
+    chats: [],
+    contacts: [],
+    connectionId: "",
   };
 
   const [user, setUser] = useState(initUser);
@@ -82,6 +83,7 @@ export default function ChatRoom() {
            chats: JSON.parse(message).dataOwner.chats,
            name: JSON.parse(message).dataOwner.fullName,
            avatar: JSON.parse(message).dataOwner.avatar,
+           contacts: JSON.parse(message).dataOwner.contacts,
            isLogin: true,
          });
       }

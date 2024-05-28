@@ -6,7 +6,7 @@ import {
 } from "semantic-ui-react"
 
 export default function ContactsList({ user, selectChat }) {
-  console.log("ContactsList:", user);
+  //console.log("ContactsList:", user);
 
   return (
     <>

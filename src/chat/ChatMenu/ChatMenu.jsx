@@ -96,8 +96,16 @@ export default function ChatMenu({ user, selectChat }) {
       {showChat.contactsList && (
         <ContactsList user={user} selectChat={selectChat} />
       )}
-      {showChat.createChat && <CreateChat createChat={handleCreateChat} />}
-      {showChat.addContact && <AddContact addContact={handleAddContact} />}
+      {showChat.createChat && (
+        <CreateChat
+          user={user}
+          handleCreateChat={handleCreateChat}
+          handleCancel={handleShowContactsList}
+        />
+      )}
+      {showChat.addContact && (
+        <AddContact handleAddContact={handleAddContact} />
+      )}
     </>
   );
 }
