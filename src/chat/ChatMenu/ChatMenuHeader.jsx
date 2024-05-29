@@ -10,6 +10,7 @@ export default function ChatMenuHeader({
     <>
       <Header as="h5">Chats</Header>
       <Button
+        basic
         circular
         size="tiny"
         color=""
@@ -17,6 +18,7 @@ export default function ChatMenuHeader({
         onClick={handleShowContactsList}
       />{" "}
       <Button
+        basic
         circular
         size="tiny"
         color=""
@@ -24,6 +26,7 @@ export default function ChatMenuHeader({
         onClick={handleShowCreateChat}
       />{" "}
       <Button
+        basic
         circular
         size="tiny"
         color=""

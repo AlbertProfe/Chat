@@ -7,8 +7,9 @@ import {
   List,
   Grid,
   Image,
-  Container, Divider, Checkbox
+  Container, Segment, Divider, Checkbox
 } from "semantic-ui-react";
+import Default_Avatar from "../../assets/images/Default_avatar_profile.jpg"
 //import AWS from "aws-sdk";
 
 // AWS S3 configuration
@@ -68,24 +69,52 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
   };
 
   return (
-    <Container>
-      <Divider />
+    <Segment>
       <Form>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "1rem",
+            marginBottom: "1rem",
+          }}
+        >
+          <Form.Field>
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                background: `url(${
+                  avatar || Default_Avatar
+                }) no-repeat center/cover`,
+                cursor: "pointer",
+              }}
+              onClick={() => document.getElementById("fileInput").click()}
+            />
+            <input
+              id="fileInput"
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleAvatarUpload}
+            />
+          </Form.Field>
+        </div>
         <Form.Field>
-          <label>Avatar</label>
-          <Input type="file" onChange={handleAvatarUpload} />
+          <Input
+            icon="chat"
+            iconPosition="left"
+            size="tiny"
+           
+            placeholder="Group Name here"
+            value={chatName}
+            onChange={(e) => setChatName(e.target.value)}
+          />{" "}
         </Form.Field>
 
         <Form.Field>
-          <label>Chat Name</label>
-          <Input
-            size="mini"
-            value={chatName}
-            onChange={(e) => setChatName(e.target.value)}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Members</label>
+          <p>Members</p>
           <List divided relaxed>
             {user.chats
               .filter((contact) => contact.type === "contact-chat")
@@ -113,13 +142,22 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
               ))}
           </List>
         </Form.Field>
-        <Button circular size="mini" onClick={handleSubmit}>
-          Create
-        </Button>
-        <Button circular size="mini" onClick={handleCancel}>
-          Cancel
-        </Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "1rem",
+          }}
+        >
+          <Button circular color="teal" size="mini" onClick={handleSubmit}>
+            Create
+          </Button>
+          <Button basic circular size="mini" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </div>
       </Form>
-    </Container>
+    </Segment>
   );
 }
