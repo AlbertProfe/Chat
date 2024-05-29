@@ -69,7 +69,7 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
   };
 
   return (
-    <Segment>
+    <Container>
       <Form>
         <div
           style={{
@@ -105,8 +105,7 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
           <Input
             icon="chat"
             iconPosition="left"
-            size="tiny"
-           
+            size="mini"
             placeholder="Group Name here"
             value={chatName}
             onChange={(e) => setChatName(e.target.value)}
@@ -115,18 +114,21 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
 
         <Form.Field>
           <p>Members</p>
-          <List divided relaxed>
+          <List
+            divided
+            relaxed
+            style={{
+              marginLeft: "12px",
+              marginRight: "12px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             {user.chats
               .filter((contact) => contact.type === "contact-chat")
               .map((contact) => (
                 <List.Item key={contact.chatId}>
                   <Grid>
-                    <Grid.Column width={2}>
-                      <Checkbox
-                        onChange={() => handleMemberSelect(contact.chatId)}
-                        checked={selectedMembers.includes(contact.chatId)}
-                      />
-                    </Grid.Column>
                     <Grid.Column width={5}>
                       <Image
                         src={`https://react.semantic-ui.com/images/avatar/small/${contact.avatar}.jpg`}
@@ -136,6 +138,12 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
                     </Grid.Column>
                     <Grid.Column width={7}>
                       <List.Header>{contact.name}</List.Header>
+                    </Grid.Column>
+                    <Grid.Column width={2}>
+                      <Checkbox
+                        onChange={() => handleMemberSelect(contact.chatId)}
+                        checked={selectedMembers.includes(contact.chatId)}
+                      />
                     </Grid.Column>
                   </Grid>
                 </List.Item>
@@ -158,6 +166,6 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
           </Button>
         </div>
       </Form>
-    </Segment>
+    </Container>
   );
 }
