@@ -7,48 +7,39 @@ import {
   List,
   Grid,
   Image,
-  Container, Segment, Divider, Checkbox
+  Container,Checkbox
 } from "semantic-ui-react";
 import Default_Avatar from "../../assets/images/Default_avatar_profile.jpg"
-//import AWS from "aws-sdk";
-
-// AWS S3 configuration
-/* const S3_BUCKET = "chatavatars";
-const REGION = "eu-central-1";
-
-AWS.config.update({
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-});
-
-const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET },
-  region: REGION,
-}); */
+import { S3Uploader } from "../../APICommunication/S3Uploader";
 
 export default function CreateChat({ user, handleCreateChat, handleCancel }) {
-  console.log("CreateChat:", user);
-
+  //console.log("CreateChat:", user);
   const [avatar, setAvatar] = useState(null);
   const [chatName, setChatName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState([]);
 
-  const handleAvatarUpload = (e) => {
-    const file = e.target.files[0];
-    const params = {
-      ACL: "public-read",
-      Body: file,
-      Bucket: 'S3_BUCKET',
-      Key: file.name,
-    };
+  const handleFileChange = (event) => {
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    // Update the state with the selected file
+    handleFileUpload(file);
+   
+  };
 
-    /* myBucket.putObject(params).send((err, data) => {
-      if (err) console.log(err);
-      else
-        setAvatar(
-          `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${file.name}`
-        );
-    }); */
+  const handleFileUpload = async (file) => {
+    if (file) {
+      const fileName = file.name;
+      await S3Uploader(file, fileName); // Assuming S3Uploader is an async function
+      console.log("File uploaded:", fileName);
+       setAvatar(constructAvatarURL(fileName));
+    } else {
+      console.log("No file selected");
+    }
+  };
+
+  // Construct the avatar URL based on the filename and base URL
+  const constructAvatarURL = (fileName) => {
+    return `https://mychatsanboxrepo.s3.eu-central-1.amazonaws.com/avatars/${fileName}`;
   };
 
   const handleMemberSelect = (chatId) => {
@@ -61,7 +52,6 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
 
   const handleSubmit = () => {
     const newChat = {
-      avatar,
       name: chatName,
       members: selectedMembers,
     };
@@ -97,7 +87,7 @@ export default function CreateChat({ user, handleCreateChat, handleCancel }) {
               id="fileInput"
               type="file"
               style={{ display: "none" }}
-              onChange={handleAvatarUpload}
+              onChange={handleFileChange}
             />
           </Form.Field>
         </div>
